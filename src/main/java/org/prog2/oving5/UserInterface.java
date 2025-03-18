@@ -22,7 +22,8 @@ public class UserInterface extends Application{
         Label hand = new Label();
 
         dealHandButton.setOnAction(e -> {
-            PlayingCard[] handArray = deckOfCards.DealHand(5);
+            HandOfCards handOfCards = new HandOfCards(5);
+            PlayingCard[] handArray = handOfCards.getHand();
             String handString = "";
             for (PlayingCard card : handArray) {
                 handString += card.getAsString() + " ";
@@ -30,8 +31,18 @@ public class UserInterface extends Application{
             hand.setText(handString);
         });
 
+        Button checkHandButton = new Button("Check hand");
+        Label checkHandLabel = new Label("Check hand: ");
+        Label checkHand = new Label();
+
+        checkHandButton.setOnAction(e -> {
+            HandOfCards handOfCards = new HandOfCards(5);
+            boolean isFlush = handOfCards.checkHand();
+            checkHand.setText(isFlush ? "Flush" : "Not flush");
+        });
+
         VBox root = new VBox();
-        root.getChildren().addAll(dealHandButton, handLabel, hand);
+        root.getChildren().addAll(dealHandButton, handLabel, hand, checkHandButton, checkHandLabel, checkHand);
 
         Scene scene = new Scene(root, 800, 600);
         stage.setScene(scene);
