@@ -10,7 +10,7 @@ public class HandOfCards {
 
     public HandOfCards(int size) {
         this.handSize = size;
-        this.hand = deckOfCards.DealHand(handSize);
+        hand = deckOfCards.DealHand(handSize);
         /**
          tested that it works with the following code
          PlayingCard[] handOfCardss = new PlayingCard[5];
@@ -29,7 +29,24 @@ public class HandOfCards {
     }
 
     public boolean checkHand() {
-        boolean isFlush = (Arrays.stream(hand).filter(card -> card.getSuit() == hand[0].getSuit()).count() == handSize);
+        boolean isFlush = (Arrays.stream(hand).filter(card -> card.
+                getSuit() == hand[0].getSuit()).count() == handSize);
         return isFlush;
+    }
+
+    public PlayingCard[] getHearts() {
+        PlayingCard[] result = Arrays.stream(hand).filter(card -> card.
+                getSuit() == 'H').toArray(PlayingCard[]::new);
+        return result;
+    }
+
+    public int getSum() {
+        int sum = Arrays.stream(hand).mapToInt(PlayingCard::getFace).sum();
+        return sum;
+    }
+
+    public Boolean hasS12() {
+        Boolean hasS12 = Arrays.stream(hand).anyMatch(card -> card.getFace() == 12 && card.getSuit() == 'S');
+        return hasS12;
     }
 }
